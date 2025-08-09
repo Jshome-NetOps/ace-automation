@@ -72,4 +72,5 @@ resource "aviatrix_distributed_firewalling_policy_list" "default" {
   dst_smart_groups = [
     aviatrix_smart_group.rfc1918.uuid
   ]
+  }
 }
