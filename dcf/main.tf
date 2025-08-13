@@ -57,18 +57,20 @@ resource "aviatrix_distributed_firewalling_policy_list" "default" {
     ]
   }
   policies {
-    name                     = "default-deny-all"
-    action                   = "DENY"
-    priority                 = 2147483646
-    protocol                 = "Any"
-    logging                  = true
-    watch                    = false
-    exclude_sg_orchestration = true
+    name     = "allow-rfc1918"
+    action   = "PERMIT"
+    priority = 1002
+    protocol = "TCP"
+    logging  = true
+    watch    = false
+    port_ranges {
+      lo = 80
+    }
     src_smart_groups = [
-      "def000ad-0000-0000-0000-000000000000" # Anywhere
+      aviatrix_smart_group.rfc1918.uuid
     ]
     dst_smart_groups = [
-      "def000ad-0000-0000-0000-000000000000" # Anywhere
+      aviatrix_smart_group.rfc1918.uuid
     ]
   }
 }
